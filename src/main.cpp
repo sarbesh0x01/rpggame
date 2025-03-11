@@ -2,8 +2,11 @@
 #include "SDL_render.h"
 #include "SDL_timer.h"
 #include "SDL_video.h"
+#include "imgui_impl_sdl2.h"
 #include "include/player.h"
 #include <SDL.h>
+#include <imgui.h>
+#include <imgui_impl_sdlrenderer2.h>
 #include <iostream>
 
 // Main function
@@ -37,15 +40,28 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
+  IMGUI_CHECKVERSION();
+  ImGui::CreateContext();
+  ImGuiIO &io = ImGui::GetIO();
+  (void)io;
+  ImGui::StyleColorsDark();
+
+  ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
+  ImGui_ImplSDLRenderer2_Init(renderer);
+
+  int windowWidht, windowHeight;
+  SDL_GetWindowSize(window, &windowWidht, &windowHeight);
+
   // Main loop flag
   bool isRunning = true;
   SDL_Event event;
-  Player player(0, 0);
+  Player player(windowWidht / 2, windowHeight / 2);
 
   // Main loop
   while (isRunning) {
     // Handle events
     while (SDL_PollEvent(&event)) {
+      ImGui_ImplSDL2_ProcessEvent(&event);
       if (event.type == SDL_QUIT) {
         isRunning = false;
       }
@@ -54,11 +70,17 @@ int main(int argc, char *argv[]) {
 
     // Set render draw color to white
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    ImGui_ImplSDLRenderer2_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
 
     // Clear the screen
     SDL_RenderClear(renderer);
 
     player.render(renderer);
+
+    ImGui::Render();
+    ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), renderer);
 
     // Present the renderer
     SDL_RenderPresent(renderer);
