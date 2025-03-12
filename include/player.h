@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SDL_events.h"
 #include <SDL.h>
 
 class Player {
@@ -11,6 +12,7 @@ public:
 
   void jump(int height);
   void render(SDL_Renderer *renderer) const;
+  void handelEvent(const SDL_Event &e);
 
   int getPosX() const;
   int getPosY() const;
