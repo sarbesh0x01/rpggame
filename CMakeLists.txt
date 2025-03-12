@@ -44,6 +44,7 @@ endforeach()
 add_executable(${PROJECT_NAME}
   src/main.cpp
   src/player.cpp
+  src/world.cpp
   ${IMGUI_SOURCES})
 
 # Include directories
