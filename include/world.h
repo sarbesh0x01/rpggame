@@ -17,9 +17,20 @@ public:
 
   void render(SDL_Renderer *renderer);
 
+  Point getTileScreenPosition(int x, int y);
+
+  int getTileWidth() const;
+  int getTileHeight() const;
+
 private:
   int rows;
   int cols;
   int tileWidth;
   int tileHeight;
+
+  int offSetX;
+  int offSetY;
+
+  void fillDiamond(SDL_Renderer *renderer, int centerX, int centerY, int width,
+                   int height);
 };
