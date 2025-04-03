@@ -1,3 +1,4 @@
+#include "../include/world.h"
 #include "SDL_render.h"
 #include "SDL_timer.h"
 #include "SDL_video.h"
@@ -48,6 +49,8 @@ int main(int argc, char *argv[]) {
   SDL_Event event;
   Player player(windowWidht / 2, windowHeight / 2);
   World world(10, 10, 64, 32);
+  world.render(renderer);
+
   // Main loop
   while (isRunning) {
     // Handle events

@@ -8,17 +8,30 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Output compile commands for IDE integration
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Find SDL2 package
+# Find SDL2 packages
 find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
+find_package(SDL2_ttf REQUIRED)
+find_package(SDL2_mixer REQUIRED)
 
-# If SDL2 wasn't found automatically, try pkg-config
-if(NOT SDL2_FOUND)
+# If SDL2 or its extensions weren't found automatically, try pkg-config
+if(NOT SDL2_FOUND OR NOT SDL2_IMAGE_FOUND OR NOT SDL2_TTF_FOUND OR NOT SDL2_MIXER_FOUND)
     include(FindPkgConfig)
     pkg_check_modules(SDL2 REQUIRED sdl2)
+    pkg_check_modules(SDL2_IMAGE REQUIRED SDL2_image)
+    pkg_check_modules(SDL2_TTF REQUIRED SDL2_ttf)
+    pkg_check_modules(SDL2_MIXER REQUIRED SDL2_mixer)
 endif()
 
+# Log found packages
 message(STATUS "SDL2 include directories: ${SDL2_INCLUDE_DIRS}")
 message(STATUS "SDL2 libraries: ${SDL2_LIBRARIES}")
+message(STATUS "SDL2_image include directories: ${SDL2_IMAGE_INCLUDE_DIRS}")
+message(STATUS "SDL2_image libraries: ${SDL2_IMAGE_LIBRARIES}")
+message(STATUS "SDL2_ttf include directories: ${SDL2_TTF_INCLUDE_DIRS}")
+message(STATUS "SDL2_ttf libraries: ${SDL2_TTF_LIBRARIES}")
+message(STATUS "SDL2_mixer include directories: ${SDL2_MIXER_INCLUDE_DIRS}")
+message(STATUS "SDL2_mixer libraries: ${SDL2_MIXER_LIBRARIES}")
 
 # Set up ImGui sources
 set(IMGUI_DIR "${CMAKE_CURRENT_SOURCE_DIR}/imgui")
@@ -50,13 +63,22 @@ add_executable(${PROJECT_NAME}
 # Include directories
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${SDL2_INCLUDE_DIRS}
+    ${SDL2_IMAGE_INCLUDE_DIRS}
+    ${SDL2_TTF_INCLUDE_DIRS}
+    ${SDL2_MIXER_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}  # For imconfig.h
     ${IMGUI_DIR}
     ${IMGUI_DIR}/backends
 )
 
 # Link libraries
-target_link_libraries(${PROJECT_NAME} PRIVATE ${SDL2_LIBRARIES} GL)
+target_link_libraries(${PROJECT_NAME} PRIVATE 
+    ${SDL2_LIBRARIES}
+    ${SDL2_IMAGE_LIBRARIES}
+    ${SDL2_TTF_LIBRARIES}
+    ${SDL2_MIXER_LIBRARIES}
+    GL
+)
 
 # Add compile definitions for ImGui
 target_compile_definitions(${PROJECT_NAME} PRIVATE

@@ -19,6 +19,8 @@ public:
 
   Point getTileScreenPosition(int x, int y);
 
+  void CreateIsometricTiles();
+
   int getTileWidth() const;
   int getTileHeight() const;
 
