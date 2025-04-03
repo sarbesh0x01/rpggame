@@ -55,10 +55,13 @@ endforeach()
 
 # Create the executable target
 add_executable(${PROJECT_NAME}
-  src/main.cpp
-  src/player.cpp
-  src/world.cpp
-  ${IMGUI_SOURCES})
+src/main.cpp
+    src/core/engine.cpp
+    src/core/input_manager.cpp
+    src/game/world.cpp
+    src/game/player.cpp
+    src/ui/gui_manager.cpp
+    ${IMGUI_SOURCES})
 
 # Include directories
 target_include_directories(${PROJECT_NAME} PRIVATE

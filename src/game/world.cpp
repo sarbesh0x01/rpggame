@@ -1,8 +1,6 @@
-#include "include/world.h"
-#include "../include/player.h"
-#include "SDL_rect.h"
-#include "SDL_render.h"
-#include <SDL_mouse.h>
+// src/game/world.cpp
+#include "../../include/game/world.h"
+#include "../../include/game/player.h"
 
 World::World(int rows, int cols, int tileWidth, int tileHeight)
     : rows(rows), cols(cols), tileWidth(tileWidth), tileHeight(tileHeight) {
@@ -18,6 +16,7 @@ Point World::cartesianToIsometric(int x, int y) {
   iso.y = (x + y) * (tileHeight / 2);
   return iso;
 }
+
 Point World::screenToCartesion(int screenX, int screenY) {
   // First remove camera offset
   screenX -= offSetX;
@@ -48,7 +47,6 @@ void World::centerCameraOnPlayer(const Player &player) {
 
 void World::fillDiamond(SDL_Renderer *renderer, int centerX, int centerY,
                         int width, int height) {
-
   SDL_Point points[5];
 
   points[0].x = centerX;
@@ -65,6 +63,7 @@ void World::fillDiamond(SDL_Renderer *renderer, int centerX, int centerY,
 
   points[4].x = points[0].x;
   points[4].y = points[0].y;
+
   SDL_RenderDrawLines(renderer, points, 5);
 }
 
@@ -84,8 +83,4 @@ void World::render(SDL_Renderer *renderer) {
       // graphics depending on what type of tile it is (grass, water, etc.)
     }
   }
-}
-
-void World::getMousePos() {
-  int printpos = SDL_GetMouseState(&mousepos_x, &mousepos_y);
 }

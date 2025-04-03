@@ -1,11 +1,6 @@
-#include "include/player.h"
-#include "../include/world.h"
-#include "SDL_events.h"
-#include "SDL_keycode.h"
-#include "SDL_rect.h"
-#include "SDL_render.h"
-#include "imgui_impl_sdl2.h"
-#include <imgui.h>
+// src/game/player.cpp
+#include "../../include/game/player.h"
+#include "../../include/game/world.h"
 
 Player::Player(int startX, int startY, World &w)
     : gridX(startX), gridY(startY), world(w) {}
@@ -34,12 +29,7 @@ void Player::render(SDL_Renderer *renderer) {
 
 void Player::jump(int height) { Pos_Y += height; }
 
-int Player::getPosX() const { return Pos_X; }
-
-int Player::getPosY() const { return Pos_Y; }
-
-void Player::handelEvent(const SDL_Event &e) {
-
+void Player::handleEvent(const SDL_Event &e) {
   if (e.type == SDL_KEYDOWN) {
     switch (e.key.keysym.sym) {
     case SDLK_w:

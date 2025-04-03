@@ -1,50 +1,41 @@
+// include/game/world.h
 #pragma once
+#include <SDL.h>
+#include <vector>
 
-#include "./player.h"
-#include "SDL_render.h"
 struct Point {
   int x;
   int y;
 };
 
+// Forward declaration
 class Player;
 
 class World {
-
 public:
   World(int rows, int cols, int tileWidth, int tileHeight);
   ~World();
 
-  Point cartesianToIsometric(int x, int y);
-  Point screenToCartesion(int x, int y);
-
-  bool isValidPosition(int x, int y) const;
-
   void render(SDL_Renderer *renderer);
-
   Point getTileScreenPosition(int x, int y);
-
+  bool isValidPosition(int x, int y) const;
   void centerCameraOnPlayer(const Player &player);
+  Point screenToCartesion(int screenX, int screenY);
 
-  void CreateIsometricTiles();
-
-  int getTileWidth() const;
-  int getTileHeight() const;
-
-  void getMousePos();
+  int getOffsetX() const { return offSetX; }
+  int getOffsetY() const { return offSetY; }
 
 private:
   int rows;
   int cols;
   int tileWidth;
   int tileHeight;
-
+  int offSetX;
+  int offSetY;
   int mousepos_x;
   int mousepos_y;
 
-  int offSetX;
-  int offSetY;
-
+  Point cartesianToIsometric(int x, int y);
   void fillDiamond(SDL_Renderer *renderer, int centerX, int centerY, int width,
                    int height);
 };
