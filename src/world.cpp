@@ -1,34 +1,48 @@
 #include "include/world.h"
+#include "../include/player.h"
 #include "SDL_rect.h"
 #include "SDL_render.h"
 
 World::World(int rows, int cols, int tileWidth, int tileHeight)
     : rows(rows), cols(cols), tileWidth(tileWidth), tileHeight(tileHeight) {
-  offSetX = 400;
+  offSetX = 600;
   offSetY = 200;
 }
 
 World::~World() {}
 
-Point World::cartesionToIsometric(int x, int y) {
+Point World::cartesianToIsometric(int x, int y) {
   Point iso;
   iso.x = (x - y) * (tileWidth / 2);
   iso.y = (x + y) * (tileHeight / 2);
   return iso;
 }
+Point World::screenToCartesion(int screenX, int screenY) {
+  // First remove camera offset
+  screenX -= offSetX;
+  screenY -= offSetY;
 
-Point World::isometricToCartesion(int x, int y) {
   Point cart;
-  cart.x = (x / (tileWidth / 2) + y / (tileHeight / 2)) / 2;
-  cart.y = (y / (tileHeight / 2) - x / (tileWidth / 2)) / 2;
+  cart.x = (screenX / (tileWidth / 2.0f) + screenY / (tileHeight / 2.0f)) / 2;
+  cart.y = (screenY / (tileHeight / 2.0f) - screenX / (tileWidth / 2.0f)) / 2;
   return cart;
 }
 
 Point World::getTileScreenPosition(int x, int y) {
-  Point iso = cartesionToIsometric(x, y);
+  Point iso = cartesianToIsometric(x, y);
   iso.x += offSetX;
   iso.y += offSetY;
   return iso;
+}
+
+bool World::isValidPosition(int x, int y) const {
+  return x >= 0 && x < cols && y >= 0 && y < rows;
+}
+
+void World::centerCameraOnPlayer(const Player &player) {
+  Point screenPos = getTileScreenPosition(player.getGridX(), player.getGridY());
+  offSetX = (1080 / 2) - screenPos.x; // Assuming window width 1080
+  offSetY = (800 / 2) - screenPos.y;  // Assuming window height 800
 }
 
 void World::fillDiamond(SDL_Renderer *renderer, int centerX, int centerY,

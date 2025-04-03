@@ -47,8 +47,9 @@ int main(int argc, char *argv[]) {
   // Main loop flag
   bool isRunning = true;
   SDL_Event event;
-  Player player(windowWidht / 2, windowHeight / 2);
-  World world(10, 10, 64, 32);
+  World world(10, 10, 128, 64);
+  Player player(0, 0, world); // Grid coordinates
+  world.centerCameraOnPlayer(player);
   world.render(renderer);
 
   // Main loop
@@ -70,8 +71,8 @@ int main(int argc, char *argv[]) {
     ImGui::NewFrame();
     // Clear the screen
     SDL_RenderClear(renderer);
-    player.render(renderer);
     world.render(renderer);
+    player.render(renderer);
     ImGui::Render();
     ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), renderer);
     // Present the renderer
