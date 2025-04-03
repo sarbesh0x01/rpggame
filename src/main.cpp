@@ -6,16 +6,33 @@
 #include "include/player.h"
 #include "include/world.h"
 #include <SDL.h>
+#include <SDL_events.h>
 #include <imgui.h>
 #include <imgui_impl_sdlrenderer2.h>
 #include <iostream>
 // Main function
+//
+//
+void HandleButton(SDL_MouseButtonEvent &E) {
+  if (E.button == SDL_BUTTON_LEFT) {
+    if (E.state == SDL_PRESSED) {
+      std::cout << "Left button pressed at (" << E.x << ", " << E.y << ")\n";
+    } else if (E.state == SDL_RELEASED) {
+      std::cout << "Left button released at (" << E.x << ", " << E.y << ")\n";
+    }
+  }
+}
+
+void HandleMotion(SDL_MouseMotionEvent &E) {
+  std::cout << "Mouse moved to (" << E.x << ", " << E.y << ")\n";
+}
 int main(int argc, char *argv[]) {
   // Initialize SDL
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
     return 1;
   }
+
   // Create a window
   SDL_Window *window =
       SDL_CreateWindow("RPG Game", SDL_WINDOWPOS_CENTERED,
@@ -35,6 +52,9 @@ int main(int argc, char *argv[]) {
     SDL_Quit();
     return 1;
   }
+
+  int mousepos_x;
+  int mousepos_y;
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
   ImGuiIO &io = ImGui::GetIO();
@@ -49,8 +69,8 @@ int main(int argc, char *argv[]) {
   SDL_Event event;
   World world(10, 10, 128, 64);
   Player player(0, 0, world); // Grid coordinates
-  world.centerCameraOnPlayer(player);
   world.render(renderer);
+  Uint32 button = SDL_GetMouseState(&mousepos_x, &mousepos_y);
 
   // Main loop
   while (isRunning) {
@@ -59,11 +79,16 @@ int main(int argc, char *argv[]) {
       ImGui_ImplSDL2_ProcessEvent(&event);
       if (event.type == SDL_QUIT) {
         isRunning = false;
+      } else if (event.type == SDL_MOUSEBUTTONDOWN ||
+                 event.type == SDL_MOUSEBUTTONUP) {
+        HandleButton(event.button);
+      } else if (event.type == SDL_MOUSEMOTION) {
+        HandleMotion(event.motion);
       } else {
         player.handelEvent(event);
       }
     }
-    std::cout << "Player Position: " << player.getPosY() << std::endl;
+
     // Set render draw color to white
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     ImGui_ImplSDLRenderer2_NewFrame();

@@ -2,6 +2,7 @@
 #include "../include/player.h"
 #include "SDL_rect.h"
 #include "SDL_render.h"
+#include <SDL_mouse.h>
 
 World::World(int rows, int cols, int tileWidth, int tileHeight)
     : rows(rows), cols(cols), tileWidth(tileWidth), tileHeight(tileHeight) {
@@ -83,4 +84,8 @@ void World::render(SDL_Renderer *renderer) {
       // graphics depending on what type of tile it is (grass, water, etc.)
     }
   }
+}
+
+void World::getMousePos() {
+  int printpos = SDL_GetMouseState(&mousepos_x, &mousepos_y);
 }

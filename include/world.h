@@ -31,11 +31,16 @@ public:
   int getTileWidth() const;
   int getTileHeight() const;
 
+  void getMousePos();
+
 private:
   int rows;
   int cols;
   int tileWidth;
   int tileHeight;
+
+  int mousepos_x;
+  int mousepos_y;
 
   int offSetX;
   int offSetY;
