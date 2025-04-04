@@ -1,14 +1,17 @@
+#pragma onc#pragma once
+#include <SDL.h>
 
-// InputHandler.h
-#ifndef INPUTHANDLER_H
-#define INPUTHANDLER_H
-
-#include <SDL_events.h>
+class Player; // Forward declaration
+class World;  // Forward declaration
 
 class InputHandler {
 public:
-  static void handleButton(const SDL_MouseButtonEvent &event);
-  static void handleMotion(const SDL_MouseMotionEvent &event);
-};
+    InputHandler(Player& playerRef, World& worldRef); // Constructor with both Player and World references
+    void handleButton(const SDL_MouseButtonEvent& event);
+    static void handleMotion(const SDL_MouseMotionEvent& event);
+    void ChangeMouseScreenToIsometric();
 
-#endif // INPUTHANDLER_H
+private:
+    Player& player; // Reference to the player
+    World& world;   // Reference to the world
+};

@@ -1,13 +1,13 @@
 // Game.cpp
 #include "../include/Game.h"
-#include "../include/InputHandler.h"
 #include <SDL.h>
 #include <SDL_timer.h>
 // Include additional headers for your World and Player classes
-
+//
 Game::Game()
     : window(nullptr), renderer(nullptr), isRunning(true),
-      world(10, 10, 128, 64), player(0, 0, world) {}
+      world(10, 10, 128, 64), player(0, 0, world), inputHandler(player, world) {
+}
 
 Game::~Game() { cleanup(); }
 
@@ -44,7 +44,7 @@ void Game::run() {
         isRunning = false;
       } else if (event.type == SDL_MOUSEBUTTONDOWN ||
                  event.type == SDL_MOUSEBUTTONUP) {
-        InputHandler::handleButton(event.button);
+        inputHandler.handleButton(event.button);
       } else if (event.type == SDL_MOUSEMOTION) {
         InputHandler::handleMotion(event.motion);
       }

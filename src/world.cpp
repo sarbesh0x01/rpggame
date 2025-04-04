@@ -3,6 +3,7 @@
 #include "SDL_rect.h"
 #include "SDL_render.h"
 #include <SDL_mouse.h>
+#include <iostream>
 
 World::World(int rows, int cols, int tileWidth, int tileHeight)
     : rows(rows), cols(cols), tileWidth(tileWidth), tileHeight(tileHeight) {
@@ -28,7 +29,6 @@ Point World::screenToCartesion(int screenX, int screenY) {
   cart.y = (screenY / (tileHeight / 2.0f) - screenX / (tileWidth / 2.0f)) / 2;
   return cart;
 }
-
 Point World::getTileScreenPosition(int x, int y) {
   Point iso = cartesianToIsometric(x, y);
   iso.x += offSetX;
@@ -67,7 +67,6 @@ void World::fillDiamond(SDL_Renderer *renderer, int centerX, int centerY,
   points[4].y = points[0].y;
   SDL_RenderDrawLines(renderer, points, 5);
 }
-
 void World::render(SDL_Renderer *renderer) {
   SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White color
 
@@ -76,14 +75,45 @@ void World::render(SDL_Renderer *renderer) {
     for (int x = 0; x < cols; x++) {
       // Get the screen position for this tile
       Point screenPos = getTileScreenPosition(x, y);
-
       // Draw the diamond tile
       fillDiamond(renderer, screenPos.x, screenPos.y, tileWidth, tileHeight);
-
       // You would typically check the tile type here and render different
       // graphics depending on what type of tile it is (grass, water, etc.)
     }
   }
+
+  // Debug: Show which grid tile the mouse is over
+  int mouseX, mouseY;
+  SDL_GetMouseState(&mouseX, &mouseY);
+  Point mouseCart = screenToCartesion(mouseX, mouseY);
+  int gridX = (int)mouseCart.x;
+  int gridY = (int)mouseCart.y;
+
+  if (isValidPosition(gridX, gridY)) {
+    Point highlightPos = getTileScreenPosition(gridX, gridY);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 128); // Yellow highlight
+    fillDiamond(renderer, highlightPos.x, highlightPos.y, tileWidth,
+                tileHeight);
+
+    // Draw coordinates as text if you have text rendering capabilities
+    // Otherwise, just print to console
+    std::cout << "Mouse over grid: (" << gridX << ", " << gridY << ")\n";
+  }
+
+  // Optional: Draw grid coordinates
+  // This would require SDL_ttf for text rendering
+  // If you want to add this feature later, you'll need to include SDL_ttf
+  // and add code to render text at each tile position
+
+  // Optional: Draw world axes for debugging
+  SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // X-axis in red
+  Point origin = getTileScreenPosition(0, 0);
+  Point xAxis = getTileScreenPosition(cols - 1, 0);
+  SDL_RenderDrawLine(renderer, origin.x, origin.y, xAxis.x, xAxis.y);
+
+  SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Y-axis in green
+  Point yAxis = getTileScreenPosition(0, rows - 1);
+  SDL_RenderDrawLine(renderer, origin.x, origin.y, yAxis.x, yAxis.y);
 }
 
 void World::getMousePos() {

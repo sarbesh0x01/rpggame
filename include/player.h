@@ -16,6 +16,7 @@ public:
   void jump(int height);
   void render(SDL_Renderer *renderer);
   void handelEvent(const SDL_Event &e);
+  void setPosition(int wx, int wy);
 
   int getPosX() const;
   int getPosY() const;
@@ -28,4 +29,6 @@ private:
   World &world;     // Reference to your World object
   int Pos_X;
   int Pos_Y;
+
+  int screenX, screenY; // Player's position in screen coordinates
 };

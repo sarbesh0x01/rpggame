@@ -6,30 +6,53 @@
 #include "SDL_render.h"
 #include "imgui_impl_sdl2.h"
 #include <imgui.h>
+#include <iostream>
 
 Player::Player(int startX, int startY, World &w)
     : gridX(startX), gridY(startY), world(w) {}
 
 void Player::move(int deltaX, int deltaY) {
-  // Move in grid space first
   int newX = gridX + deltaX;
   int newY = gridY + deltaY;
 
-  // Add collision checking here if needed
+  // Check for collision before moving
   if (world.isValidPosition(newX, newY)) {
-    gridX = newX;
-    gridY = newY;
+    setPosition(
+        newX,
+        newY); // Use setPosition to update both grid and screen coordinates
   }
 }
 
 void Player::render(SDL_Renderer *renderer) {
-  Point screenPos = world.getTileScreenPosition(gridX, gridY);
-  SDL_Rect playerRect = {
-      screenPos.x - 25, // Center horizontally (player width 50)
-      screenPos.y - 50, // Align with tile top (player height 50)
-      50, 50};
-  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-  SDL_RenderFillRect(renderer, &playerRect);
+  // Draw player at the correct screen position
+  SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red color for player
+
+  // Draw a filled diamond at the player's position
+  const int playerSize = 24; // Slightly smaller than a tile
+
+  // Draw diamond shape
+  SDL_Point points[5];
+  points[0].x = screenX;
+  points[0].y = screenY - playerSize / 2; // Top
+  points[1].x = screenX + playerSize / 2;
+  points[1].y = screenY; // Right
+  points[2].x = screenX;
+  points[2].y = screenY + playerSize / 2; // Bottom
+  points[3].x = screenX - playerSize / 2;
+  points[3].y = screenY; // Left
+  points[4].x = points[0].x;
+  points[4].y = points[0].y; // Back to top
+
+  // Fill the player diamond
+  for (int i = 0; i < 4; i++) {
+    SDL_RenderDrawLine(renderer, screenX, screenY, points[i].x, points[i].y);
+  }
+  SDL_RenderDrawLines(renderer, points, 5);
+
+  // Draw a small cross at the center for debugging
+  SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // Yellow for debug marker
+  SDL_RenderDrawLine(renderer, screenX - 5, screenY, screenX + 5, screenY);
+  SDL_RenderDrawLine(renderer, screenX, screenY - 5, screenX, screenY + 5);
 }
 
 void Player::jump(int height) { Pos_Y += height; }
@@ -63,4 +86,19 @@ void Player::handelEvent(const SDL_Event &e) {
       break;
     }
   }
+}
+
+void Player::setPosition(int wx, int wy) {
+  // Set grid position
+  gridX = wx;
+  gridY = wy;
+
+  // Get screen position from the world
+  Point screenPos = world.getTileScreenPosition(gridX, gridY);
+  screenX = screenPos.x;
+  screenY = screenPos.y;
+
+  std::cout << "Player moved to grid (" << gridX << ", " << gridY
+            << ") with screen position (" << screenX << ", " << screenY
+            << ")\n";
 }
