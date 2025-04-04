@@ -58,6 +58,8 @@ add_executable(${PROJECT_NAME}
   src/main.cpp
   src/player.cpp
   src/world.cpp
+  src/InputHandler.cpp
+  src/Game.cpp
   ${IMGUI_SOURCES})
 
 # Include directories
