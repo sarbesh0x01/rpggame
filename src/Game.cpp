@@ -6,8 +6,7 @@
 //
 Game::Game()
     : window(nullptr), renderer(nullptr), isRunning(true),
-      world(10, 10, 128, 64), player(0, 0, world), inputHandler(player, world) {
-}
+      world(10, 10, 64, 32), player(0, 0, world), inputHandler(player, world) {}
 
 Game::~Game() { cleanup(); }
 
@@ -55,6 +54,7 @@ void Game::run() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     // Render game objects
+    world.loadTileTexture(renderer, "../assets/tile_000.png");
     world.render(renderer);
     player.render(renderer);
 

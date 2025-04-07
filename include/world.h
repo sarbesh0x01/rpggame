@@ -2,6 +2,7 @@
 
 #include "./player.h"
 #include "SDL_render.h"
+#include <string>
 struct Point {
   int x;
   int y;
@@ -33,6 +34,8 @@ public:
 
   void getMousePos();
 
+  void loadTileTexture(SDL_Renderer *renderer, const std::string &path);
+
 private:
   int rows;
   int cols;
@@ -45,6 +48,7 @@ private:
   int offSetX;
   int offSetY;
 
+  SDL_Texture *tileTexture; // Single tile or tileset
   void fillDiamond(SDL_Renderer *renderer, int centerX, int centerY, int width,
                    int height);
 };

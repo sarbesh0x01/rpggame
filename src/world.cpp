@@ -2,6 +2,7 @@
 #include "../include/player.h"
 #include "SDL_rect.h"
 #include "SDL_render.h"
+#include <SDL2/SDL_image.h>
 #include <SDL_mouse.h>
 #include <iostream>
 
@@ -34,6 +35,16 @@ Point World::getTileScreenPosition(int x, int y) {
   iso.x += offSetX;
   iso.y += offSetY;
   return iso;
+}
+
+void World::loadTileTexture(SDL_Renderer *renderer, const std::string &path) {
+  SDL_Surface *surface = IMG_Load(path.c_str());
+  if (!surface) {
+    std::cerr << "Failed to load tile image: " << IMG_GetError() << std::endl;
+    return;
+  }
+  tileTexture = SDL_CreateTextureFromSurface(renderer, surface);
+  SDL_FreeSurface(surface);
 }
 
 bool World::isValidPosition(int x, int y) const {
@@ -75,10 +86,9 @@ void World::render(SDL_Renderer *renderer) {
     for (int x = 0; x < cols; x++) {
       // Get the screen position for this tile
       Point screenPos = getTileScreenPosition(x, y);
-      // Draw the diamond tile
-      fillDiamond(renderer, screenPos.x, screenPos.y, tileWidth, tileHeight);
-      // You would typically check the tile type here and render different
-      // graphics depending on what type of tile it is (grass, water, etc.)
+      SDL_Rect srcRect = {0, 0, tileWidth, tileHeight}; // Use actual atlas rect
+      SDL_Rect destRect = {screenPos.x, screenPos.y, tileWidth, tileHeight};
+      SDL_RenderCopy(renderer, tileTexture, &srcRect, &destRect);
     }
   }
 

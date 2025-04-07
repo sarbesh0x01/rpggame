@@ -50,9 +50,6 @@ void Player::render(SDL_Renderer *renderer) {
   SDL_RenderDrawLines(renderer, points, 5);
 
   // Draw a small cross at the center for debugging
-  SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255); // Yellow for debug marker
-  SDL_RenderDrawLine(renderer, screenX - 5, screenY, screenX + 5, screenY);
-  SDL_RenderDrawLine(renderer, screenX, screenY - 5, screenX, screenY + 5);
 }
 
 void Player::jump(int height) { Pos_Y += height; }
