@@ -1,0 +1,47 @@
+
+# Ignore build directories
+/build/
+/test/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+*.o
+*.cache
+*.clangd
+*.obj
+*.exe
+*.out
+*.app
+*.so
+*.dll
+*.dylib
+*.a
+*.lib
+
+# Ignore ImGui folder
+/imgui/
+
+# Ignore SDL-related files
+*.sdl
+*.sdl2
+*.dll
+*.dylib
+
+# Ignore common C++ backup and temp files
+*.swp
+*.swo
+*.log
+*.tmp
+*.bak
+
+# Ignore editor/project files
+.vscode/
+.idea/
+*.code-workspace
+
+# Ignore compiled intermediate files
+*.d
+*.gcda
+*.gcno
+*.gcov
+
