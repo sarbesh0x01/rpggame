@@ -8,16 +8,6 @@
 #include <include/core/Game.h>
 #include <iostream>
 
-TTF_Font *font;
-SDL_Rect *renderQuad;
-SDL_Texture *textTexture;
-
-// Constructor
-Game::Game() {}
-
-// Destructor
-Game::~Game() {}
-
 void Game::init(const char *title, int xpos, int ypos, int width, int height,
                 bool fullscreen) {
 
@@ -35,7 +25,8 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
 
     // Vurenalble to LFI
     TTF_Init();
-    font = TTF_OpenFont("../../text/Agave/AgaveNerdFont-Bold.ttf", 24);
+    font = TTF_OpenFont(
+        "/home/sarbesh/Elowen/text/Agave/AgaveNerdFont-Bold.ttf", 24);
 
     SDL_Color textColor = {0, 0, 0, 255};
     // First render the text to surfac
@@ -43,8 +34,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
         TTF_RenderText_Solid(font, "Hello, SDL!", textColor);
 
     // Create a texture from the surface
-    SDL_Texture *textTexture =
-        SDL_CreateTextureFromSurface(renderer, textSurface);
+    textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
 
     // Get the dimensions of the texture
     int textWidth = textSurface->w;

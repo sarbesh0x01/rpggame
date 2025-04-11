@@ -7,9 +7,9 @@
 class Game {
 
 public:
-  Game();
+  Game() = default;
 
-  ~Game();
+  ~Game() = default;
 
   void init(const char *title, int xpos, int ypos, int width, int height,
             bool fullscreen);
@@ -26,8 +26,7 @@ private:
 
   SDL_Window *window;
   SDL_Renderer *renderer;
-  //  TTF_Font *font;
-  // SDL_Texture *textTexture = nullptr; // For renderer-based text
-  SDL_Rect *rect;
-  // SDL_Rect renderQuad;
+  TTF_Font *font;
+  SDL_Rect renderQuad;
+  SDL_Texture *textTexture;
 };
