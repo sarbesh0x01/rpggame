@@ -9,11 +9,16 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Add raylib (assumes raylib has its own CMakeLists.txt)
 add_subdirectory(raylib)
 
-# Get all .cpp files in src/
-file(GLOB_RECURSE SOURCES "src/*.cpp")
+# Include your project's headers
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
+# Automatically gather all .cpp and .h files from src/ and include/
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
+file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS src/*.h)
 
 # Create executable
-add_executable(TheReverseWorld ${SOURCES})
+add_executable(TheReverseWorld ${SOURCES} ${HEADERS})
 
-# Link with raylib and system libraries
-target_link_libraries(TheReverseWorld raylib m pthread dl rt X11)
+target_link_libraries(TheReverseWorld raylib pthread dl m)
+
+

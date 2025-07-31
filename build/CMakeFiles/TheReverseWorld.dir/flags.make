@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
 
-CXX_INCLUDES = -I/home/sarbesh/Projects/TheReverseWorld/raylib/src -I/home/sarbesh/Projects/TheReverseWorld/raylib/src/external/glfw/include
+CXX_INCLUDES = -I/home/sarbesh/Projects/TheReverseWorld/include -I/home/sarbesh/Projects/TheReverseWorld/raylib/src -I/home/sarbesh/Projects/TheReverseWorld/raylib/src/external/glfw/include
 
 CXX_FLAGS = -std=c++17
 
