@@ -1,0 +1,11 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/sarbesh/Projects/TheReverseWorld/build/cmake_install.cmake",
+		"/home/sarbesh/Projects/TheReverseWorld/build/raylib/cmake_install.cmake",
+		"/home/sarbesh/Projects/TheReverseWorld/build/raylib/raylib/cmake_install.cmake",
+		"/home/sarbesh/Projects/TheReverseWorld/build/raylib/raylib/external/glfw/cmake_install.cmake",
+		"/home/sarbesh/Projects/TheReverseWorld/build/raylib/raylib/external/glfw/src/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
