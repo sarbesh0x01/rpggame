@@ -1,32 +1,11 @@
 #include "player.h"
 #include "raylib.h"
-#include <cstdio>
-#include <iostream>
 
-Player::Player(float StartPosX, float StartPosY){
-  PosX = StartPosX;
-  PosY = StartPosY;
-  speed = 0.4f;
+void Player::Draw() {
+  DrawSphere((Vector3){1.0f, 0.0f, 9.0f}, 1.0f, GREEN);
+  DrawGrid(10, 1.0f); // Draw a grid
+  DrawSphereWires((Vector3){1.0f, 0.0f, 2.0f}, 2.0f, 16, 16, LIME);
+  DrawCylinderWires((Vector3){4.0f, 0.0f, -2.0f}, 1.0f, 2.0f, 3.0f, 4,
+                    DARKBLUE);
+  DrawCylinderWires((Vector3){4.5f, -1.0f, 2.0f}, 1.0f, 1.0f, 2.0f, 6, BROWN);
 }
-
-
-void Player::move(float dx, float dy) {
-  PosX += dx;
-  PosY += dy;
-
-  // Need to re write this better
-  if (PosX < 10){
-    PosX = 10;
-  }
-  if (PosY < 10){
-    PosY = 10;
-  }
-  if (PosY > 900-10){
-    PosY = (900-10);
-  }
-
-if (PosX > 900-10){
-    PosX = (900-10);
-  }
-}
-void Player::Draw() { DrawCircle((int)PosX, (int)PosY, 10.0f, GRAY); }

@@ -11,8 +11,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/4.0.3-dirty/CMakeCCompiler.cmake"
   "CMakeFiles/4.0.3-dirty/CMakeCXXCompiler.cmake"
   "CMakeFiles/4.0.3-dirty/CMakeSystem.cmake"
-  "CMakeFiles/VerifyGlobs.cmake"
-  "CMakeFiles/cmake.verify_globs"
   "/home/sarbesh/Projects/TheReverseWorld/raylib/CMakeLists.txt"
   "/home/sarbesh/Projects/TheReverseWorld/raylib/CMakeOptions.txt"
   "/home/sarbesh/Projects/TheReverseWorld/raylib/cmake/AddIfFlagCompiles.cmake"

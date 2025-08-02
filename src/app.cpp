@@ -1,11 +1,14 @@
 #include "main.h"
 
 int main() {
+  // This is the main function for the code to run
+ 
+  Game game;
+  bool sucess;
 
-  InitializeWindow();
-  while (isRunning()) {
-    DrawGame();
-    ProcessInput();
+  sucess = game.Initialize();
+  if (sucess) {
+    game.RunLoop();
   }
-  DestroyWindow();
+  game.CloseGame();
 }

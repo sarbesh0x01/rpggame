@@ -6,19 +6,26 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Add raylib (assumes raylib has its own CMakeLists.txt)
+# Add raylib (assumes raylib/ has CMakeLists.txt)
 add_subdirectory(raylib)
 
-# Include your project's headers
-include_directories(${CMAKE_SOURCE_DIR}/include)
+# Source and header files (manually listed)
+set(SOURCES
+    src/main.cpp
+    src/player.cpp
+    src/app.cpp
+)
 
-# Automatically gather all .cpp and .h files from src/ and include/
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
-file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS src/*.h)
+set(HEADERS
+    src/main.h
+    src/player.h
+)
 
 # Create executable
 add_executable(TheReverseWorld ${SOURCES} ${HEADERS})
 
-target_link_libraries(TheReverseWorld raylib pthread dl m)
+# Include project headers
+target_include_directories(TheReverseWorld PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
-
+# Link raylib and required system libs for Linux
+target_link_libraries(TheReverseWorld PRIVATE raylib pthread dl m)

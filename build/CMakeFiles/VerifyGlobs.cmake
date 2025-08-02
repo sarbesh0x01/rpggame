@@ -4,6 +4,7 @@
 # SOURCES at CMakeLists.txt:16 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/home/sarbesh/Projects/TheReverseWorld/src/*.cpp")
 set(OLD_GLOB
+  "/home/sarbesh/Projects/TheReverseWorld/src/Level1.cpp"
   "/home/sarbesh/Projects/TheReverseWorld/src/app.cpp"
   "/home/sarbesh/Projects/TheReverseWorld/src/main.cpp"
   "/home/sarbesh/Projects/TheReverseWorld/src/player.cpp"
@@ -16,6 +17,7 @@ endif()
 # HEADERS at CMakeLists.txt:17 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/home/sarbesh/Projects/TheReverseWorld/src/*.h")
 set(OLD_GLOB
+  "/home/sarbesh/Projects/TheReverseWorld/src/Level1.h"
   "/home/sarbesh/Projects/TheReverseWorld/src/main.h"
   "/home/sarbesh/Projects/TheReverseWorld/src/player.h"
   )

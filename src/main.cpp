@@ -1,48 +1,47 @@
 #include "main.h"
-#include "raylib.h"
+#include "Level1.h"
 #include "player.h"
-
+#include "raylib.h"
+#include <stdbool.h>
 
 #define DefaultWindowHeight 900
 #define DefaultWindowWidth 900
 
-// Global Player
-Player demoplayer(100,100);
+// Global Defination of player
+Player testPlayer;
 
-bool isRunning() { return !WindowShouldClose(); }
+Game::Game() : mRunning(true) {}
 
-
-void InitializeWindow() {
-  InitWindow(DefaultWindowWidth, DefaultWindowHeight, "NotDecidedYet");
+bool Game::Initialize() {
+  SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+  InitWindow(DefaultWindowWidth, DefaultWindowHeight, "Not Decided Yet");
+  camera.position = (Vector3){0.0f, 10.0f, 10.0f};
+  camera.target = (Vector3){0.0f, 0.0f, 0.0f};
+  camera.up = (Vector3){0.0f, 1.0f, 0.0f};
+  camera.fovy = 45.0f;
+  camera.projection = CAMERA_PERSPECTIVE;
+  SetTargetFPS(60);
+  return IsWindowReady();
 }
-
-void DestroyWindow(){
-  // WIll be simple right but later if nore things need to be cleanded up be
-  CloseWindow();
-}
-
-void DrawGame(){
+void Game::DrawGame() {
   BeginDrawing();
-  ClearBackground(WHITE);
-  demoplayer.Draw();
+  ClearBackground(RAYWHITE);
+  BeginMode3D(camera);
+  testPlayer.Draw();
+  EndMode3D();
+  DrawFPS(10, 10);
   EndDrawing();
 }
 
-void ProcessInput(){
-  if (IsKeyDown(KEY_W)){
-    demoplayer.move(0, -demoplayer.speed);
-      }
-  if (IsKeyDown(KEY_S)){
-    demoplayer.move(0, demoplayer.speed);
-      }
-  if (IsKeyDown(KEY_A)){
-    demoplayer.move(-demoplayer.speed, 0);
-      }
-  if (IsKeyDown(KEY_D)){
-    demoplayer.move(demoplayer.speed, 0);
-      }
+void Game::CloseGame() { CloseWindow(); }
+
+void Game::UpdateGame() {}
+void Game::ProcessInput() {}
+
+void Game::RunLoop() {
+  while (!WindowShouldClose() && mRunning) {
+    ProcessInput();
+    UpdateGame();
+    DrawGame();
+  }
 }
-  
-
-
-

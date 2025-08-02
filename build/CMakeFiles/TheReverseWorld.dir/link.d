@@ -2,9 +2,9 @@ TheReverseWorld: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/Scrt1.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/crti.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o \
-  CMakeFiles/TheReverseWorld.dir/src/app.cpp.o \
   CMakeFiles/TheReverseWorld.dir/src/main.cpp.o \
   CMakeFiles/TheReverseWorld.dir/src/player.cpp.o \
+  CMakeFiles/TheReverseWorld.dir/src/app.cpp.o \
   raylib/raylib/libraylib.a \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/libpthread.a \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/libdl.a \
@@ -62,11 +62,11 @@ TheReverseWorld: \
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o:
 
-CMakeFiles/TheReverseWorld.dir/src/app.cpp.o:
-
 CMakeFiles/TheReverseWorld.dir/src/main.cpp.o:
 
 CMakeFiles/TheReverseWorld.dir/src/player.cpp.o:
+
+CMakeFiles/TheReverseWorld.dir/src/app.cpp.o:
 
 raylib/raylib/libraylib.a:
 
