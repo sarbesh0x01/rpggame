@@ -9,8 +9,7 @@
 
 // Global Defination of player
 Player testPlayer;
-
-Game::Game() : mRunning(true) {}
+Game::Game() { mRunning = true; }
 
 bool Game::Initialize() {
   SetConfigFlags(FLAG_WINDOW_RESIZABLE);

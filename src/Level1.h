@@ -1,8 +1,6 @@
 #define once
 
 class Level {
- public:
-void InitLevel();
-
+public:
+  void InitLevel();
 };
-

@@ -233,6 +233,30 @@ update_mappings/fast:
 	$(MAKE) $(MAKESILENT) -f raylib/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/build.make raylib/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/build
 .PHONY : update_mappings/fast
 
+src/Level1.o: src/Level1.cpp.o
+.PHONY : src/Level1.o
+
+# target to build an object file
+src/Level1.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheReverseWorld.dir/build.make CMakeFiles/TheReverseWorld.dir/src/Level1.cpp.o
+.PHONY : src/Level1.cpp.o
+
+src/Level1.i: src/Level1.cpp.i
+.PHONY : src/Level1.i
+
+# target to preprocess a source file
+src/Level1.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheReverseWorld.dir/build.make CMakeFiles/TheReverseWorld.dir/src/Level1.cpp.i
+.PHONY : src/Level1.cpp.i
+
+src/Level1.s: src/Level1.cpp.s
+.PHONY : src/Level1.s
+
+# target to generate assembly for a file
+src/Level1.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TheReverseWorld.dir/build.make CMakeFiles/TheReverseWorld.dir/src/Level1.cpp.s
+.PHONY : src/Level1.cpp.s
+
 src/app.o: src/app.cpp.o
 .PHONY : src/app.o
 
@@ -323,6 +347,9 @@ help:
 	@echo "... TheReverseWorld"
 	@echo "... glfw"
 	@echo "... raylib"
+	@echo "... src/Level1.o"
+	@echo "... src/Level1.i"
+	@echo "... src/Level1.s"
 	@echo "... src/app.o"
 	@echo "... src/app.i"
 	@echo "... src/app.s"

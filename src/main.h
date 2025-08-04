@@ -5,9 +5,8 @@
 enum GameState { GAME_PAUSE, GAME_RUNNING, GAME_QUIT };
 
 class Game {
- public:
-
-    Camera camera = { 0 };
+public:
+  Camera camera = {0};
 
   Game();
   bool Initialize();
@@ -16,7 +15,7 @@ class Game {
   void UpdateGame();
   void CloseGame();
   void DrawGame();
- private:
+
+private:
   bool mRunning;
 };
-

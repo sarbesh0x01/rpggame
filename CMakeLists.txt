@@ -14,11 +14,13 @@ set(SOURCES
     src/main.cpp
     src/player.cpp
     src/app.cpp
+    src/Level1.cpp
 )
 
 set(HEADERS
     src/main.h
     src/player.h
+    src/Level1.h
 )
 
 # Create executable

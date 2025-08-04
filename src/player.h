@@ -4,6 +4,7 @@
 class Player {
 private:
   Vector3 PlayerPosition;
-public:  
+
+public:
   void Draw();
 };

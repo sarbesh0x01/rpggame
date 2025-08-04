@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/TheReverseWorld.dir/link.d"
+  "CMakeFiles/TheReverseWorld.dir/src/Level1.cpp.o"
+  "CMakeFiles/TheReverseWorld.dir/src/Level1.cpp.o.d"
   "CMakeFiles/TheReverseWorld.dir/src/app.cpp.o"
   "CMakeFiles/TheReverseWorld.dir/src/app.cpp.o.d"
   "CMakeFiles/TheReverseWorld.dir/src/main.cpp.o"
